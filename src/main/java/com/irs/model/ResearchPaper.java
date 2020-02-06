@@ -4,32 +4,36 @@ import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.solr.core.mapping.SolrDocument;
 
-@SolrDocument(collection = "research_papers")
+@SolrDocument(collection = "researchpaper")
 public class ResearchPaper {
 
 	@Id
 	@Field
-	private static int id = 0;
+	private int id;
 	@Field
-	private String name;
+	private String title;
 	@Field
 	private String author;
 	@Field
 	private String paper;
 
 	
-	public ResearchPaper(String name, String author, String paper) {
-		super();
-		ResearchPaper.id += 1;
-		this.name = name;
+	public ResearchPaper(int id, String title, String author, String paper) {
+//		super();
+		this.id = id;
+		this.title = title;
 		this.author = author;
 		this.paper = paper;
 	}
+	@Override
+	public String toString() {
+		return "ResearchPaper [id=" + id + ", name=" + title + ", author=" + author + ", paper=" + paper + "]";
+	}
 	public String getName() {
-		return name;
+		return title;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.title = name;
 	}
 	public String getAuthor() {
 		return author;

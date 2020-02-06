@@ -1,9 +1,14 @@
 package com.irs.service;
 
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+//import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,34 +19,40 @@ import com.irs.repository.ResearchPapersRepository;
 @Service
 public class ResearchPaperService implements ResearchPaperServiceInterface{
 	
-//	@Autowired
-//	private ResearchPapersRepository repository;
+	@Autowired
+	private ResearchPapersRepository repository;
+	
+	private static int count = 0;
+	
+	private ArrayList<ResearchPaper> researchPaper = new ArrayList<ResearchPaper>();
+	
+	private void indexDoc(String file) throws IOException {
+		String paper = new String(Files.readAllBytes(Paths.get(file)));
+		String title = "NA";
+		String author = "NA";
+		
+		count++;
+		
+		ResearchPaper rp = new ResearchPaper(count, title, author, paper);
+		researchPaper.add(rp);
+	}
 	
 	@Override
-	public ArrayList<ResearchPaper> addResearchPapers() throws IOException {
-		ArrayList<ResearchPaper> researchPaper = new ArrayList<ResearchPaper>();
-		
-		String fileName = "C:\\Users\\Hp-pc\\Downloads\\IRS\\data\\1\\10.1.1.2.1.txt";
-		String paper = new String(Files.readAllBytes(Paths.get(fileName)));
-		String name = "A test research paper 1";
-		String author = "Harsh";
-		System.out.println(paper);
-
-		ResearchPaper rp = new ResearchPaper(name, author, paper);
-
-		researchPaper.add(rp);
-
-		fileName = "C:\\Users\\Hp-pc\\Downloads\\IRS\\data\\2\\10.1.1.2.2.txt";
-		paper = new String(Files.readAllBytes(Paths.get(fileName)));
-		System.out.println(paper);
-		name = "A test research paper 1";
-		author = "Harsh";
-		
-		rp = new ResearchPaper(name, author, paper);
-		
-		researchPaper.add(rp);
-		
-		return researchPaper;
-//		repository.saveAll(researchPaper);
+	public void addResearchPapers() throws IOException {
+		Path path = Paths.get("C:\\Users\\Hp-pc\\Downloads\\IRS\\data");
+		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+				indexDoc(file.toFile().toString());
+				if (count%100 == 0){
+					repository.saveAll(researchPaper);
+					System.out.println("No. of papers done = " + count + " file = "+file.toFile().toString());
+					researchPaper = new ArrayList<ResearchPaper>();
+				}
+				return FileVisitResult.CONTINUE;
+			}
+		});
 	}
+
+	
+	
 }
