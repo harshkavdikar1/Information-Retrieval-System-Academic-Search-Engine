@@ -15,13 +15,17 @@ public class ResearchPaper {
 	@Field
 	private String author;
 	@Field
-	private String paper;
+	private String content;
+	@Field
+	private String fileName;
 
-	public ResearchPaper(String id, String title, String author, String paper) {
+	public ResearchPaper(String id, String title, String author, String content, String fileName) {
+		super();
 		this.id = id;
 		this.title = title;
 		this.author = author;
-		this.paper = paper;
+		this.content = content;
+		this.fileName = fileName;
 	}
 
 	public ResearchPaper() {
@@ -30,7 +34,8 @@ public class ResearchPaper {
 
 	@Override
 	public String toString() {
-		return "ResearchPaper [id=" + id + ", name=" + title + ", author=" + author + ", paper=" + paper + "]";
+		return "ResearchPaper [id=" + id + ", title=" + title + ", author=" + author + ", content=" + content.substring(0, 20)
+				+ ", fileName=" + fileName + "]";
 	}
 
 	public String getAuthor() {
@@ -41,12 +46,12 @@ public class ResearchPaper {
 		this.author = author;
 	}
 
-	public String getPaper() {
-		return paper;
+	public String getContent() {
+		return content;
 	}
 
-	public void setPaper(String paper) {
-		this.paper = paper;
+	public void setContent(String paper) {
+		this.content = paper;
 	}
 
 	public String getTitle() {
@@ -63,5 +68,13 @@ public class ResearchPaper {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
 	}
 }

@@ -27,11 +27,13 @@ public class AddResearchPapers implements IAddResearchPapers {
 	private ArrayList<ResearchPaper> researchPaper = new ArrayList<ResearchPaper>();
 
 	private void formatDoc(String file) throws IOException {
-		String paper = new String(Files.readAllBytes(Paths.get(file)));
+		String content = new String(Files.readAllBytes(Paths.get(file)));
+		String[] filePath = file.split("\\\\");
+		String fileName = filePath[filePath.length-1];
 		String title = "NA";
 		String author = "NA";
 		count++;
-		ResearchPaper rp = new ResearchPaper(Integer.toString(count), title, author, paper);
+		ResearchPaper rp = new ResearchPaper(Integer.toString(count), title, author, content, fileName);
 		researchPaper.add(rp);
 	}
 
@@ -56,5 +58,6 @@ public class AddResearchPapers implements IAddResearchPapers {
 			}
 		});
 		repository.saveAll(researchPaper);
+		System.out.println("Total No. of papers done = " + count);
 	}
 }

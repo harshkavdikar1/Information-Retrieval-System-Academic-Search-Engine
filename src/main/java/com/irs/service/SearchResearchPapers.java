@@ -13,6 +13,8 @@ import org.apache.solr.client.solrj.response.FieldStatsInfo;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.springframework.stereotype.Service;
 
+import com.irs.model.ResearchPaper;
+
 @Service
 public class SearchResearchPapers implements ISearchResearchPapers {
 
@@ -26,7 +28,7 @@ public class SearchResearchPapers implements ISearchResearchPapers {
 		HttpSolrClient solr = new HttpSolrClient.Builder().withBaseSolrUrl(urlString).build();
 		solr.setParser(new XMLResponseParser());
 
-		String searchQuery = "paper:\"" + content + "\"";
+		String searchQuery = "content:\"" + content + "\"";
 
 		SolrQuery query = new SolrQuery();
 
@@ -38,7 +40,7 @@ public class SearchResearchPapers implements ISearchResearchPapers {
 
 		// Set Highlight and field to be highlighted
 		query.setHighlight(true);
-		query.addHighlightField("paper");
+		query.addHighlightField("content");
 
 		// Set statistics collection as true
 		query.setGetFieldStatistics(true);
@@ -54,6 +56,15 @@ public class SearchResearchPapers implements ISearchResearchPapers {
 		FieldStatsInfo stats = response.getFieldStatsInfo().get("id");
 		long numberofmatches = stats.getCount();
 		System.out.println("Total Number of records = " + numberofmatches);
+		
+		// To display entire content of research paper
+		List<ResearchPaper> rp = response.getBeans(ResearchPaper.class);
+
+		List<String> files = new ArrayList<String>();
+		for(int i=0; i<rp.size(); i++) {
+			files.add(rp.get(i).getFileName());
+		}
+		
 
 		// First Field is the primary key in schema
 		// Second field the field we are searching for
@@ -61,27 +72,25 @@ public class SearchResearchPapers implements ISearchResearchPapers {
 		Map<String, Map<String, List<String>>> hitHighlightedMap = response.getHighlighting();
 
 		// List to store highlighted content from research papers
-		List<String> highLightedTexts = new ArrayList<String>();
+		List<String> highlightedTexts = new ArrayList<String>();
 
 		// Iterate over each research paper and add highlighted text to list
 		for (String key : hitHighlightedMap.keySet()) {
 			Map<String, List<String>> highlightedFieldMap = hitHighlightedMap.get(key);
-			List<String> highlightedList = highlightedFieldMap.get("paper");
+			List<String> highlightedList = highlightedFieldMap.get("content");
 			try {
-				String highLightedText = highlightedList.get(0);
-				highLightedTexts.add(highLightedText);
+				String highlightedText = highlightedList.get(0);
+				highlightedTexts.add(highlightedText);
 			} catch (NullPointerException e) {
 			}
 		}
-
-		// To display entire content of research paper
-//		List<ResearchPaper> rp = response.getBeans(ResearchPaper.class);
 
 		List<Object> results = new ArrayList<Object>();
 
 		results.add(responseTime);
 		results.add(numberofmatches);
-		results.add(highLightedTexts);
+		results.add(highlightedTexts);
+		results.add(files);
 
 		return results;
 	}

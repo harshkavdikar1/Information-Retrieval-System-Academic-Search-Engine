@@ -164,8 +164,8 @@
     </div>
   </div>
   <div id="display-result" class="col-md-6 col-md-offset-3 ">
-	<c:forEach items="${result}" var="value">
-		<div id='result' class='results'><h3>Paper Number</h3><p = class='extract'>${value}</p></div>
+	<c:forEach items="${result}" var="value" varStatus="status">
+		<div id='result' class='results'><h3>${file[status.index]}</h3><p = class='extract'>${value}</p></div>
 	</c:forEach>
   </div>
   <div class="push"></div>
