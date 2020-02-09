@@ -38,9 +38,15 @@ public class AddResearchPapers implements IAddResearchPapers {
 	@Override
 	public void addResearchPapersToSolr() throws IOException {
 		Path path = Paths.get("C:\\Users\\Hp-pc\\Downloads\\IRS\\data");
+		
+		//Walk over all the files present in the loc
 		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 			public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+
+				//Create an object of Research Paper to commit into Solr
 				formatDoc(file.toFile().toString());
+				
+				//Bulk Commit to Solr
 				if (count % 100 == 0) {
 					repository.saveAll(researchPaper);
 					System.out.println("No. of papers done = " + count + " file = " + file.toFile().toString());

@@ -24,6 +24,10 @@ public class ResearchPaper {
 		this.paper = paper;
 	}
 
+	public ResearchPaper() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		return "ResearchPaper [id=" + id + ", name=" + title + ", author=" + author + ", paper=" + paper + "]";

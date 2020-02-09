@@ -1,11 +1,12 @@
 package com.irs.service;
 
+import java.io.IOException;
 import java.util.List;
 
-import com.irs.model.ResearchPaper;
+import org.apache.solr.client.solrj.SolrServerException;
 
 public interface ISearchResearchPapers {
 
-	List<ResearchPaper> search();
+	List<Object> search(String content) throws SolrServerException, IOException;
 
 }
