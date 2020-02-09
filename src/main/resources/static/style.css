@@ -1,0 +1,123 @@
+body {
+  font-family: Helvetica Neue, Helvetica, Arimo, Liberation Sans, Lucida Grande, sans-serif;
+  background: url("https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1122px-Wikipedia-logo-v2.svg.png") no-repeat center center fixed;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: Times, Georgia, Linux Libertine, Cambria, serif;
+}
+
+h4 a,
+.list-inline li a {
+  color: white !important;
+  text-decoration: underline !important;
+}
+
+a:hover,
+a:visited,
+a:active,
+a:link {
+  text-decoration: none;
+  color: #333;
+}
+
+.pageTitle,
+.titleNote {
+  background-color: rgba(12, 33, 38, 0.5);
+  color: white;
+}
+
+.search_box,
+.searchSubmit,
+#randomPage {
+  height: 4rem;
+  min-height: 1.2em;
+  line-height: 1.6rem;
+  verticle-align: middle;
+  display: inline-block;
+  margin: 2.2rem auto 1.5em;
+  padding: .5rem 1rem;
+}
+
+.search_box {
+  font-size: 2rem;
+  width: 400px;
+  background: #fff;
+  border: .5px solid #ccc;
+  box-shadow: inset 0 0 0 .1em #ccc;
+  border-radius: .1em;
+}
+
+.searchSubmit,
+#randomPage {
+  font-weight: 70;
+  color: #fff;
+  cursor: pointer;
+  background-color: #165c91;
+  border: 1px solid #165c91;
+  text-align: center;
+}
+
+#randomPage a {
+  color: #fff;
+}
+/* RESULTS */
+
+.resultDisplay {
+  
+}
+
+.results {
+  font-size: 2rem;
+  max-width: 800px;
+  background: #fff;
+  border: .5px solid #ccc;
+  box-shadow: inset 0 0 0 .1em #ccc;
+  border-radius: .1em;
+  padding: 1rem;
+  margin: .2rem;
+}
+
+
+.extract {
+  font-size: 12px;
+}
+
+
+/* Sticky Footer
+http://ryanfait.com/resources/footer-stick-to-bottom-of-page/ */
+
+* {
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.wrapper {
+  min-height: 100%; 
+  height: auto !important; /*Cause footer to stick to bottom in IE 6*/
+  height: 100%; 
+  margin: 0 auto -4em; /*Allow for footer height*/
+
+}
+
+.footer,
+.push {
+  clear: both;
+}
+
+.footer {
+  min-height: 4em;
+  background-color: rgba(12, 33, 38, 0.5);
+}
+
+.footer-menu-divider,
+.copyright {
+  color: white;
+}
