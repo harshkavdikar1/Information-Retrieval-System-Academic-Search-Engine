@@ -39,7 +39,7 @@ public class AddResearchPapers implements IAddResearchPapers {
 
 	@Override
 	public void addResearchPapersToSolr() throws IOException {
-		Path path = Paths.get("C:\\Users\\Hp-pc\\Downloads\\IRS\\data");
+		Path path = Paths.get("C:\\Users\\Administrator\\Downloads\\data");
 		
 		//Walk over all the files present in the loc
 		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {

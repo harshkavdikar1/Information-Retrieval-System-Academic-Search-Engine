@@ -153,7 +153,7 @@
   <div class="row form-group">
     <div class="col-md-8 col-md-offset-2  text-center">
 		<form action="search" method="post">
-			<input type="text" class="search_box" id="input" name="content" value=${content}>
+			<input type="text" class="search_box" name="content" value=${content}>
 			<button type="submit" class="btn btn-default searchSubmit" id="searchSubmit">
 				<i class="fa fa-search" aria-hidden="true"></i>
 			</button>

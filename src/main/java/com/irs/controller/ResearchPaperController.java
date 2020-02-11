@@ -3,8 +3,6 @@ package com.irs.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.apache.solr.client.solrj.SolrServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,9 +23,10 @@ public class ResearchPaperController {
 	@Autowired
 	private ISearchResearchPapers searchResearchPapers;
 
-	@PostConstruct
-	public void addResearchPapersToSolr() throws IOException {
+	@GetMapping("/add")
+	public String addResearchPapersToSolr() throws IOException {
 		addResearchPapers.addResearchPapersToSolr();
+		return "results";
 	}
 
 	@PostMapping("/search")

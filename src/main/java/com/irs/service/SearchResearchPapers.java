@@ -27,8 +27,19 @@ public class SearchResearchPapers implements ISearchResearchPapers {
 		// Create solr Client object
 		HttpSolrClient solr = new HttpSolrClient.Builder().withBaseSolrUrl(urlString).build();
 		solr.setParser(new XMLResponseParser());
-
-		String searchQuery = "content:\"" + content + "\"";
+		
+		String searchText = content.trim();
+		
+		String searchQuery = "";
+		
+		//Proximity Search
+		if (searchText.contains(" ")) {
+			searchQuery = "content:\"" + searchText + "\"";
+		}
+		//WildCard Search
+		else {
+			searchQuery = "content:" + searchText + "*";
+		}
 
 		SolrQuery query = new SolrQuery();
 
