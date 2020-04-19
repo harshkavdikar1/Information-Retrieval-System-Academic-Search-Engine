@@ -97,10 +97,7 @@
 	  font-size: 12px;
 	}
 	
-	
-	/* Sticky Footer
-	http://ryanfait.com/resources/footer-stick-to-bottom-of-page/ */
-	
+
 	* {
 	  margin: 0;
 	}
@@ -140,10 +137,29 @@
 	  color:Red;
 	  background-color:white;
 	}
+	
+	.ui-autocomplete-loading {
+	    background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+	  }
   </style>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript">
+	$(function() {
+		$("#content").autocomplete({
+			source: "researchPapersAutocomplete", 
+			minLength: 3,
+		});
+	});
+   </script>
+
 </head>
 <body>
-<link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/css/bootstrap.css" >
 <div class="container-fluid wrapper">
   <div class="row pageTitle">
     <div class="col-md-4 col-md-offset-4 title text-center">
@@ -153,8 +169,8 @@
   <div class="row form-group">
     <div class="col-md-8 col-md-offset-2  text-center">
 		<form action="search" method="post">
-			<input type="text" class="search_box" name="content" value=${content}>
-			<button type="submit" class="btn btn-default searchSubmit" id="searchSubmit">
+			<input id="content" type="text" class="search_box" name="content" value=${content}>
+			<button type="submit" class="btn btn-default" id="searchSubmit">
 				<i class="fa fa-search" aria-hidden="true"></i>
 			</button>
 		</form>
@@ -165,7 +181,7 @@
   </div>
   <div id="display-result" class="col-md-6 col-md-offset-3 ">
 	<c:forEach items="${result}" var="value" varStatus="status">
-		<div id='result' class='results'><h3>${file[status.index]}</h3><p = class='extract'>${value}</p></div>
+		<div id='result' class='results'><h3>${file[status.index]}</h3><p class='extract'>${value}</p></div>
 	</c:forEach>
   </div>
   <div class="push"></div>
